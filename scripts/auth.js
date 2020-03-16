@@ -7,7 +7,7 @@ auth.onAuthStateChanged(user => {
     //console.log('user logged in: ' ,user); 
     
     // get data
-    db.collection('reviews').get().then(snapshot => {
+    db.collection('reviews').onSnapshot(snapshot => {
       setupReviews(snapshot.docs);
       setupUI(user);
     })
@@ -22,7 +22,6 @@ auth.onAuthStateChanged(user => {
 const createForm = document.querySelector('#create-form');
 createForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  console.log(createForm);
   db.collection('reviews').add({
     title: createForm['title'].value,
     content: createForm['content'].value
