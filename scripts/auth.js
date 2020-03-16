@@ -18,7 +18,25 @@ auth.onAuthStateChanged(user => {
   }
 });
 
-// sign up
+//create new review
+const createForm = document.querySelector('#create-form');
+createForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  console.log(createForm);
+  db.collection('reviews').add({
+    title: createForm['title'].value,
+    content: createForm['content'].value
+  }).then(() => {
+    //close modal on reset form
+    const modal = document.querySelector('#modal-create');
+    M.Modal.getInstance(modal).close();
+    createForm.reset();
+  }).catch(err => {
+    console.log(err.message);
+  })
+})
+
+// signup
 const singupForm = document.querySelector('#signup-form');
 
 singupForm.addEventListener('submit', (e) => {

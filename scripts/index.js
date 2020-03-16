@@ -24,7 +24,7 @@ const setupReviews = (data) => {
       //console.log(reviews);
       const li = `
         <li>
-          <div class="collapsible-header grey lighten-4">${reviews.tittle}</div>
+          <div class="collapsible-header grey lighten-4">${reviews.title}</div>
           <div class="collapsible-body white">${reviews.content}</div>
         </li>
       `;
