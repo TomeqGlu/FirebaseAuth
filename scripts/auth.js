@@ -9,9 +9,11 @@ auth.onAuthStateChanged(user => {
     // get data
     db.collection('reviews').get().then(snapshot => {
       setupReviews(snapshot.docs);
+      setupUI(user);
     })
   } else {
     console.log('user logged out');
+    setupUI(); //If there is nothing if statement in setupUi wil be false
     setupReviews([]);
   }
 });

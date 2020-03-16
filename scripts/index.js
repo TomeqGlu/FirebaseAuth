@@ -1,4 +1,18 @@
 const reviewsList = document.querySelector('.reviews');
+const loggedOutLinks = document.querySelectorAll('.logged-out');
+const loogedInLinks = document.querySelectorAll('.logged-in');
+
+const setupUI = (user) => {
+  if (user) {
+    //toggle UI elemnts
+    loogedInLinks.forEach(item => item.style.display = 'block');
+    loggedOutLinks.forEach(item => item.style.display = 'none');
+  } else {
+    //toogle UI elements
+    loogedInLinks.forEach(item => item.style.display = 'none');
+    loggedOutLinks.forEach(item => item.style.display = 'block');
+  }
+}
 
 // setup reviews
 const setupReviews = (data) => {
