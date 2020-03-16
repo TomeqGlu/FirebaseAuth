@@ -1,3 +1,17 @@
+// get data
+db.collection('reviews').get().then(snapshot => {
+  setupReviews(snapshot.docs);
+})
+
+//listen for auth status changes
+auth.onAuthStateChanged(user => {
+  if (user) {
+    console.log('user logged in: ' ,user);
+  } else {
+    console.log('user logged out');
+  }
+});
+
 // sign up
 const singupForm = document.querySelector('#signup-form');
 
@@ -24,10 +38,8 @@ const logout = document.querySelector('#logout');
 
 logout.addEventListener('click', (e) => {
   e.preventDefault();
-  auth.signOut().then(()=> {
-    console.log('user signed out');
-  })
-})
+  auth.signOut();  
+});
 
 // login
 const loginForm = document.querySelector('#login-form');
@@ -40,7 +52,6 @@ loginForm.addEventListener('submit', (e) => {
   const password = loginForm['login-password'].value; 
 
   auth.signInWithEmailAndPassword(email, password).then((cred) => {
-    console.log(cred.user);
     //close modal and rest the form
     const modal = document.querySelector('#modal-login');
     M.Modal.getInstance(modal).close();
