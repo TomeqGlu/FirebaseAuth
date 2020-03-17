@@ -4,12 +4,14 @@
 //listen for auth status changes
 auth.onAuthStateChanged(user => {
   if (user) {
-    //console.log('user logged in: ' ,user); 
+    console.log('user logged in: ' ,user); 
     
     // get data
     db.collection('reviews').onSnapshot(snapshot => {
       setupReviews(snapshot.docs);
       setupUI(user);
+    }).catch(err => {
+      console.log(err.message);
     })
   } else {
     console.log('user logged out');

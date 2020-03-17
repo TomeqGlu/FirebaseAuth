@@ -1,13 +1,22 @@
 const reviewsList = document.querySelector('.reviews');
 const loggedOutLinks = document.querySelectorAll('.logged-out');
 const loogedInLinks = document.querySelectorAll('.logged-in');
+const accountDetails = document.querySelector('.account-details');
 
 const setupUI = (user) => {
   if (user) {
+    // account info
+    const html = `
+      <div>Logged in as ${user.email}</div>
+    `;
+    accountDetails.innerHTML = html;
+
     //toggle UI elemnts
     loogedInLinks.forEach(item => item.style.display = 'block');
     loggedOutLinks.forEach(item => item.style.display = 'none');
   } else {
+    //hide account info
+    accountDetails.innerHTML = ``;
     //toogle UI elements
     loogedInLinks.forEach(item => item.style.display = 'none');
     loggedOutLinks.forEach(item => item.style.display = 'block');
