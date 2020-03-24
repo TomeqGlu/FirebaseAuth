@@ -10,9 +10,9 @@ auth.onAuthStateChanged(user => {
     db.collection('reviews').onSnapshot(snapshot => {
       setupReviews(snapshot.docs);
       setupUI(user);
-    }).catch(err => {
+    }, err => {
       console.log(err.message);
-    })
+    });
   } else {
     console.log('user logged out');
     setupUI(); //If there is nothing if statement in setupUi wil be false
@@ -38,22 +38,26 @@ createForm.addEventListener('submit', (e) => {
 })
 
 // signup
-const singupForm = document.querySelector('#signup-form');
+const signupForm = document.querySelector('#signup-form');
 
-singupForm.addEventListener('submit', (e) => {
+signupForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
   //get user info
-  const email = singupForm['signup-email'].value;  
-  const password = singupForm['signup-password'].value;
+  const email = signupForm['signup-email'].value;  
+  const password = signupForm['signup-password'].value;
 
   console.log(email, password);
 
   // sign up the user
   auth.createUserWithEmailAndPassword(email, password).then(cred => {
+    return db.collection('users').doc(cred.user.uid).set({
+      bio: signupForm['signup-bio'].value
+    });    
+  }).then(() => {
     const modal = document.querySelector('#modal-signup');
     M.Modal.getInstance(modal).close();
-    singupForm.reset();
+    signupForm.reset();
   });
   // line above will take smoe time to execute, that's why i added a promise
 })
