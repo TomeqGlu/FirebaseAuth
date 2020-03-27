@@ -58,8 +58,6 @@ signupForm.addEventListener('submit', (e) => {
   const email = signupForm['signup-email'].value;  
   const password = signupForm['signup-password'].value;
 
-  console.log(email, password);
-
   // sign up the user
   auth.createUserWithEmailAndPassword(email, password).then(cred => {
     return db.collection('users').doc(cred.user.uid).set({
@@ -69,6 +67,9 @@ signupForm.addEventListener('submit', (e) => {
     const modal = document.querySelector('#modal-signup');
     M.Modal.getInstance(modal).close();
     signupForm.reset();
+    signupForm.querySelector('.error').innerHTML = '';
+  }).catch(err => {
+    signupForm.querySelector('.error').innerHTML = err.message;
   });
   // line above will take smoe time to execute, that's why i added a promise
 })
@@ -96,5 +97,8 @@ loginForm.addEventListener('submit', (e) => {
     const modal = document.querySelector('#modal-login');
     M.Modal.getInstance(modal).close();
     loginForm.reset();
+    loginForm.querySelector('.error').innerHTML = '';
+  }).catch(err => {
+    loginForm.querySelector('.error').innerHTML = err.message;
   });
 })
